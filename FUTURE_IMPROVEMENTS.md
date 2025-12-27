@@ -333,7 +333,7 @@ if __name__ == '__main__':
     </style>
 </head>
 <body>
-    <h1>🔍 지능형 가격 분석 대시보드</h1>
+    <h1>🔍 가격 분석 대시보드</h1>
     
     <div class="search-box">
         <input type="text" id="keyword" placeholder="검색 키워드 입력">
