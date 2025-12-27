@@ -66,6 +66,11 @@ def search():
             "values": hist.tolist(),
         }
 
+        # 검색 결과 자동 저장
+        save_data = {"keyword": keyword, "prices": prices, "statistics": stats}
+        saved_filename = analyzer.save_results(save_data)
+        print(f"검색 결과 자동 저장: {saved_filename}")
+
         return jsonify(
             {
                 "success": True,
@@ -79,6 +84,7 @@ def search():
                 },
                 "prices": prices[:50],  # 상위 50개
                 "histogram": histogram_data,
+                "saved_filename": saved_filename,  # 저장된 파일명 추가
             }
         )
 
