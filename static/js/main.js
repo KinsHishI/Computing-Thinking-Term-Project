@@ -49,7 +49,16 @@ async function searchPrice() {
         if (data.success) {
             currentResult = data;
             displayResults(data);
-            showSuccess(`"${keyword}" 검색 완료! ${data.stats.count}개의 가격을 분석했습니다.`);
+
+            // 저장 완료 메시지 표시
+            if (data.saved_filename) {
+                showSuccess(`"${keyword}" 검색 완료! ${data.stats.count}개의 가격을 분석했습니다.\n💾 자동 저장: ${data.saved_filename}`);
+            } else {
+                showSuccess(`"${keyword}" 검색 완료! ${data.stats.count}개의 가격을 분석했습니다.`);
+            }
+
+            // 히스토리 자동 새로고침
+            setTimeout(() => loadHistory(), 500);
         } else {
             throw new Error(data.error || '결과를 가져올 수 없습니다.');
         }
@@ -94,6 +103,9 @@ function displayResults(data) {
 
     // 가격 목록 표시
     displayPriceList(data.prices.slice(0, 20)); // 상위 20개만
+
+    // 저장 버튼 상태 업데이트
+    updateSaveButton(data.saved_filename);
 
     // 결과 섹션 표시
     showResults();
@@ -203,6 +215,24 @@ function displayPriceList(prices) {
         priceItem.textContent = price.toLocaleString() + '원';
         priceListDiv.appendChild(priceItem);
     });
+}
+
+// ================================================================
+// 저장 버튼 상태 업데이트
+// ================================================================
+function updateSaveButton(savedFilename) {
+    const saveBtn = document.querySelector('.action-buttons button');
+    if (saveBtn && savedFilename) {
+        saveBtn.innerHTML = '✅ 자동 저장됨';
+        saveBtn.style.background = '#10B981';
+        saveBtn.title = `저장 완료: ${savedFilename}`;
+        // 3초 후 원래 상태로 복구
+        setTimeout(() => {
+            saveBtn.innerHTML = '💾 다시 저장';
+            saveBtn.style.background = '';
+            saveBtn.title = '';
+        }, 3000);
+    }
 }
 
 // 결과 저장
