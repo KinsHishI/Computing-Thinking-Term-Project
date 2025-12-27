@@ -1,7 +1,5 @@
 # 사용 가이드 및 예제
 
-## 🎯 Quick Start
-
 ### 1. GUI 모드로 실행 (권장)
 ```bash
 python3 price_analyzer.py
