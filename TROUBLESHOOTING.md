@@ -236,5 +236,3 @@ with open('last_result.pkl', 'rb') as f:
 3. 에러 메시지 전문
 
 ---
-
-**요약**: tkinter 문제가 있다면 **`price_analyzer_cli.py`를 사용하세요!** 동일한 기능을 모든 환경에서 안정적으로 제공합니다. 🚀
